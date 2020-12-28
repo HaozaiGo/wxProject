@@ -75,7 +75,7 @@ export default {
   flex-wrap: wrap;
 }
 .myPet div {
-  padding: 10rpx;
+  padding: 10rpx 10px;
   text-align: center;
 }
 .myPet img {
