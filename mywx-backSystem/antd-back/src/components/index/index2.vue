@@ -7,14 +7,13 @@
             <template #title>
               <span><UserOutlined />首页</span>
             </template>
-            <a-menu-item  v-for="(item,index) of indexOptions" :key="index">{{item}}</a-menu-item>
-            <!-- <a-menu-item key="2">option2</a-menu-item> -->
+            <a-menu-item  v-for="(item,index) of indexOptions" :key="index" @click="routerLink(item.url)">{{item.name}}</a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
             <template #title>
               <span><AuditOutlined />我的</span>
             </template>
-            <a-menu-item v-for="(item,index) of profile" :key="index">{{item}}</a-menu-item>
+            <a-menu-item v-for="(item,index) of profile" :key="index" >{{item.name}}</a-menu-item>
           </a-sub-menu>
            <a-sub-menu key="sub3">
             <template #title>
@@ -38,7 +37,8 @@
       <a-layout-content
         :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '90vh' }"
       >
-        Content
+      <router-view></router-view>
+  
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -54,11 +54,17 @@ export default {
     return {
       collapsed: false,
       indexOptions:[
-          '轮播图','简单介绍','pick1','pick2','pick3'
+          {name:'轮播图',url:'/banner'},{name:'简单介绍',url:'/easyIntroduction'},{name:'pick1'},{name:'pick2'},{name:'pick3'}
       ],
       profile:['page1','page2','page3','page4']
     };
   },
+  methods:{
+    routerLink(item){
+      this.$router.push(item)
+      console.log(item)
+      }
+  }
 };
 </script>
 <style>
