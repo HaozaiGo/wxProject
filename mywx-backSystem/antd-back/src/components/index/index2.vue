@@ -5,19 +5,19 @@
       <a-menu theme="dark" mode="inline" :default-selected-keys="['sub1']">
           <a-sub-menu key="sub1">
             <template #title>
-              <span><UserOutlined />首页</span>
+             <span><user-outlined />首页</span>
             </template>
             <a-menu-item  v-for="(item,index) of indexOptions" :key="index" @click="routerLink(item.url)">{{item.name}}</a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
             <template #title>
-              <span><AuditOutlined />我的</span>
+              <span><audit-Outlined />我的</span>
             </template>
-            <a-menu-item v-for="(item,index) of profile" :key="index" >{{item.name}}</a-menu-item>
+            <a-menu-item v-for="(items) of profile" :key="items" >{{items}}</a-menu-item>
           </a-sub-menu>
            <a-sub-menu key="sub3">
             <template #title>
-              <span><AppstoreOutlined />应用</span>
+              <span><appstore-Outlined />应用</span>
             </template>
             <a-menu-item key="1">option1</a-menu-item>
             <a-menu-item key="2">option2</a-menu-item>
@@ -25,7 +25,7 @@
             <a-menu-item key="4">option4</a-menu-item>
           </a-sub-menu>
         <a-menu-item key="4">
-          <AreaChartOutlined />
+          <areaChart-Outlined />
           <span>统计</span>
         </a-menu-item>
       </a-menu>
@@ -54,7 +54,7 @@ export default {
     return {
       collapsed: false,
       indexOptions:[
-          {name:'轮播图',url:'/banner'},{name:'简单介绍',url:'/easyIntroduction'},{name:'pick1'},{name:'pick2'},{name:'pick3'}
+          {name:'轮播图',url:'/banner'},{name:'简单介绍',url:'/easyIntroduction'},{name:'pick1',url:'/pick1'},{name:'pick2',url:'/pick2'},{name:'pick3',url:'/pick3'}
       ],
       profile:['page1','page2','page3','page4']
     };
