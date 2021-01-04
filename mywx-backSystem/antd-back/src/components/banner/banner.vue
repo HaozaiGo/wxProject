@@ -34,12 +34,14 @@
 
 <script>
 import { CloudDownloadOutlined } from "@ant-design/icons-vue";
+import { banner } from '../../api/api'
 export default {
   components: {
     CloudDownloadOutlined,
   },
   data() {
     return {
+      bannerImg:[],
       bannerList: [
         {
           name: "图片1",
@@ -54,6 +56,17 @@ export default {
       ],
     };
   },
+  mounted(){
+   this.getbannerData()
+
+  },
+  methods:{
+   getbannerData(){
+     let bannerData =  banner();
+     console.log(bannerData)
+   }
+
+  }
 };
 </script>
 
