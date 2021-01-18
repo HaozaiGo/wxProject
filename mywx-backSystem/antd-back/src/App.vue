@@ -1,17 +1,14 @@
 <template>
   <div>
-    <Index />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Index from "./components/index/index2"
 
 export default {
   name: "App",
-  components: {
-    Index
-  },
+ 
 };
 </script>
 

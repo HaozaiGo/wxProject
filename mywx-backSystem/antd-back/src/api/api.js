@@ -1,11 +1,16 @@
-import Axios from 'axios';
-//实例地址
-const url = 'http://localhost:3000'
+import http from '../utils/http'
 
-// 轮播图
-let banner = function() {
-    Axios.get(`${url}/banner`).then(res => {
-        return res.data
-    })
+// resquest 请求地址
+// '/testIp'代表vue-cli中config, index.js中配置的代理
+
+let resquest = 'http://localhost:3000'
+
+export function getIndex(params) {
+    return http.get(`${resquest}/banner`, params)
 }
-export { banner }
+
+export function login(params) {
+    return http.post(`${resquest}/login`, params)
+}
+
+export { resquest }
