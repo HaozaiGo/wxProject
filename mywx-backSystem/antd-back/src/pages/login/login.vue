@@ -38,8 +38,11 @@
 </template>
 
 <script>
-import { useForm } from "@ant-design-vue/use";
+// import { useForm } from "@ant-design-vue/use";
+import { Modal } from 'ant-design-vue'
 import { UserOutlined, UnlockOutlined } from "@ant-design/icons-vue";
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { createVNode } from 'vue';
 import { login } from "@/api/api";
 export default {
   components: {
@@ -78,16 +81,32 @@ export default {
   },
 
   methods: {
-    // loginMethod(formData){
-    //   login(formData).then((res)=>{
-    //     console.log(res)
-    //   })
-    // },
+    // 登录
     async loginMethod(formData) {
-
-      const logining = await login(formData)
+      var that = this 
+      const logining = await login(formData);
+      if(logining && logining.status != 400){
+        Modal.success({
+          title:'登录成功,请稍候'
+        })
+        
+        setTimeout(function(){
+          that.$router.push('/index')
+        },1000)
+      }
+      else if(logining.status == 400){
+        Modal.confirm({
+          title:'账号密码错误咯',
+          icon: createVNode(ExclamationCircleOutlined),
+          cancelText:'注册',
+          onCancel(){
+            that.$router.push('/registered')
+          }
+        })
+      }
       console.log(logining)
     },
+    // 提交
     onSubmit() {
       const Data = { username : this.form.name , password : this.form.password};
       this.$refs.ruleForm

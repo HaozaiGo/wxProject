@@ -1,0 +1,11 @@
+{
+    "RECORDS": [{
+        "username": "123",
+        "password": "123",
+        "phone": "13326745182"
+    }, {
+        "username": "root",
+        "password": "123",
+        "phone": "13326745182"
+    }]
+}
