@@ -4,17 +4,39 @@ const crypto = require('crypto')
 const { userInfo } = require('os')
 const secret = 'abcde'
 
-
-exports.logining = (req, res) => {
-    console.log(req.body)
+// 注册
+exports.registered = (req, res) => {
+    // console.log(req.body)
     const { username, password } = req.body;
-    console.log(username)
-        // const hash = crypto.createHmac('sha256', secret)
-        //     .update(username)
-        //     .digest('hex')
-        // console.log(hash)
     User.findOne({
-            username
+        username
+    }).then(data => {
+        if (data) return res.status(401).send('账号已经被其他人注册')
+        else {
+            console.log(username, password)
+            const newUser = new User({
+                username,
+                password
+            })
+            newUser.save()
+                .then(data => {
+                    res.send('success')
+                }).catch(err => console.log(err))
+        }
+        console.log('success注册成功')
+    })
+
+}
+
+// 登录
+exports.logining = (req, res) => {
+    const { username, password } = req.body;
+    const hashPassword = crypto.createHmac('sha256', secret)
+        .update(password)
+        .digest('hex')
+    User.findOne({
+            username,
+            password
         })
         .then(data => {
             if (!data) return res.status(400).json('账号密码错误')
@@ -23,11 +45,4 @@ exports.logining = (req, res) => {
                 res.send(data)
             }
         })
-        // Login.findOne({
-        //     userName: username,
-        // }).then(userData => {
-        //     if (!userData) return res.status(400).json('账号或者密码错误')
-        //     if (userData) console.log('111')
-
-    // }).catch(err => console.log(err))
 }

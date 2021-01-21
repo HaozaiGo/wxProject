@@ -10,11 +10,11 @@ const userLogin = new mongoose.Schema({
     password: {
         required: true,
         type: String,
-        // set(val) {
-        //     return crypto.createHmac('sha256', secret)
-        //         .update(val)
-        //         .digest('hex')
-        // }
+        set(val) {
+            return crypto.createHmac('sha256', secret)
+                .update(val)
+                .digest('hex')
+        }
     },
     phone: {
         type: String,

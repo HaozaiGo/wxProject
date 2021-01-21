@@ -7,7 +7,7 @@
       list-type="picture-card"
       class="avatar-uploader"
       :show-upload-list="false"
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      :action="upLoadImg + '/uploadImg'"
       :before-upload="beforeUpload"
       @change="handleChange"
     >
@@ -34,6 +34,7 @@
 <script>
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
+import { resquest } from '@/api/api';
 function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
@@ -48,10 +49,14 @@ export default {
     return{
       fileList:[],
       loading:false,
+      upLoadImg:'',
       imageUrl: '',
       value1:'',
       value2:''
     }
+  },
+  created(){
+    this.upLoadImg = resquest;
   },
   methods:{
     handleChange(info){

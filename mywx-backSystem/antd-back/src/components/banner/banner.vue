@@ -61,7 +61,7 @@ export default {
     this.imgUrl = resquest;
 
     //  this.getList()
-    console.log(this.imgUrl);
+    // console.log(resquest);
   },
   methods: {
     // 请求banner数据

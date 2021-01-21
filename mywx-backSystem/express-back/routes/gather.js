@@ -5,5 +5,7 @@ const login = require('./login')
 
 module.exports = app => {
     app.get('/banner', index.banner);
-    app.post('/login', login.logining)
+    app.post('/login', login.logining);
+    app.post('/registered', login.registered);
+    app.post('/uploadImg', index.upLoadImg);
 }
