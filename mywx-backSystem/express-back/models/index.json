@@ -1,9 +1,11 @@
 {
     "RECORDS": [{
+        "user": "123",
         "bannerImg": "comfident.jpg",
         "imgTitle": "自信",
         "introduction": "这是第一幅上传图"
     }, {
+        "user": "123",
         "bannerImg": "friend.png",
         "imgTitle": "朋友们",
         "introduction": "图2"

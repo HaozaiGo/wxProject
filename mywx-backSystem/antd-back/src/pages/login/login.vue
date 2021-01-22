@@ -85,7 +85,8 @@ export default {
     async loginMethod(formData) {
       var that = this 
       const logining = await login(formData);
-      if(logining && logining.status != 400){
+      console.log(logining.data)
+      if(logining && logining != 400){
         Modal.success({
           title:'登录成功,请稍候'
         })
@@ -104,7 +105,6 @@ export default {
           }
         })
       }
-      console.log(logining)
     },
     // 提交
     onSubmit() {
@@ -118,9 +118,6 @@ export default {
           console.log("error", error);
         });
     },
-  },
-  onLoad() {
-  
   },
 };
 </script>

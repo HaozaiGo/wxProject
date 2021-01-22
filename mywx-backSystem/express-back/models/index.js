@@ -2,6 +2,9 @@
 const mongoose = require('mongoose')
 
 const indexSchema = new mongoose.Schema({
+    user: {
+        type: String
+    },
     //banner
     bannerImg: { type: String },
     //TITLE 

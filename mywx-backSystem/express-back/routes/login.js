@@ -1,5 +1,6 @@
 var express = require('express')
 const User = require('../models/login')
+const Index = require('../models/index')
 const crypto = require('crypto')
 const { userInfo } = require('os')
 const secret = 'abcde'
@@ -14,6 +15,10 @@ exports.registered = (req, res) => {
         if (data) return res.status(401).send('账号已经被其他人注册')
         else {
             console.log(username, password)
+            const newIndex = new Index({
+                user: username
+            })
+            newIndex.save()
             const newUser = new User({
                 username,
                 password
@@ -42,7 +47,7 @@ exports.logining = (req, res) => {
             if (!data) return res.status(400).json('账号密码错误')
             else {
                 console.log(data);
-                res.send(data)
+                return res.status(200).send(data)
             }
         })
 }
