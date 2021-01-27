@@ -1,4 +1,19 @@
-import { createApp } from 'vue';
-import VueRouter from 'vue-router'
+// import { createApp } from 'vue';
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-createApp().use(VueRouter)
+import Banner from '../components/banner/banner.vue'
+
+
+
+
+
+const routes = [
+    { path: '/banner', component: Banner }
+]
+
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes
+})
+
+export default router
