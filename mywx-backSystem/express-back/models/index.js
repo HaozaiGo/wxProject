@@ -6,7 +6,7 @@ const indexSchema = new mongoose.Schema({
         type: String
     },
     //banner
-    bannerImg: { type: String },
+    upLoadPic: { type: Array },
     //TITLE 
     imgTitle: { type: String },
     //introduction

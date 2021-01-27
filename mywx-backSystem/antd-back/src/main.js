@@ -5,6 +5,9 @@ import 'ant-design-vue/dist/antd.css';
 // import 'ant-design-vue/dist/antd.less';
 import router from './router/router.js'
 
+// Vuex
+import store from './store/index'
+
 const app = createApp(App);
 
 
@@ -13,4 +16,5 @@ const app = createApp(App);
 app.config.productionTip = false;
 app.use(Antd);
 app.use(router);
+app.use(store);
 app.mount('#app')

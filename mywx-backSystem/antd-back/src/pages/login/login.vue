@@ -86,7 +86,9 @@ export default {
       var that = this 
       const logining = await login(formData);
       console.log(logining.data)
-      if(logining && logining != 400){
+      // 将用户名存入vuex
+      this.$store.commit('M_userName',logining.data.username);
+      if(logining && logining.status != 400){
         Modal.success({
           title:'登录成功,请稍候'
         })
