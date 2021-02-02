@@ -6,7 +6,9 @@ const upLoadImg = require('../util/upLoadImg');
 /* GET home page. */
 
 exports.banner = (req, res) => {
-    Index.find()
+    const user = req.query.user;
+    // console.log(user)
+    Index.findOne({ user })
         .then(data => {
 
             res.send(data)

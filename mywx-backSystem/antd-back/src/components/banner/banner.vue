@@ -1,8 +1,8 @@
 <template>
   <div>
     <a-carousel effect="fade">
-      <div v-for="(item, index) of bannerList" :key="index">
-        <img :src="imgUrl + `${item.bannerImg}`" alt="" class="bannerImg" />
+      <div v-for="(item, index) of bannerList.upLoadPic" :key="index">
+        <img :src="imgUrl + `/images/${item}`" alt="" class="bannerImg" />
       </div>
     </a-carousel>
     <!-- 添加或者删除 -->
@@ -17,7 +17,7 @@
         </a-upload>
       </div>
 
-      <a-button type="danger" class="deleteBtn">删除图片 </a-button>
+      <a-button type="danger" class="deleteBtn">删除图片</a-button>
     </div>
 
     <!-- 图片列表 -->
@@ -58,17 +58,19 @@ export default {
     };
   },
   mounted() {
-    this.getbannerData();
+    this.getbannerData({user:this.userName});
     this.imgUrl = resquest;
     // console.log(this.$store.state.userName)
 
   },
   methods: {
     // 请求banner数据
-    async getbannerData() {
-      const bannerData = await getIndex();
+    async getbannerData(userName) {
+      const bannerData = await getIndex(userName);
 
       this.bannerList = bannerData.data;
+      console.log(this.bannerList);
+      console.log(this.bannerList.data)
     },
     handleChange(info){
       // console.log(info)
@@ -88,7 +90,6 @@ export default {
      }else{
        return this.$store.getters.getUserName
      }
-     
    }
   }
 };
