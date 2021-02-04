@@ -16,4 +16,8 @@ export function login(params) {
 export function Registered(params) {
     return http.post(`${resquest}/registered`, params)
 }
+export function deleteImg(params) {
+    return http.delete(`${resquest}/deleteImg`, params)
+}
+
 export { resquest }

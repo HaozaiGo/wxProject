@@ -7,7 +7,7 @@
       list-type="picture-card"
       class="avatar-uploader"
       :show-upload-list="false"
-      :action="upLoadImg + '/uploadImg'"
+      :action="baseUrl + `/uploadAvatar?user=${userName}`"
       :before-upload="beforeUpload"
       @change="handleChange"
     >
@@ -49,14 +49,14 @@ export default {
     return{
       fileList:[],
       loading:false,
-      upLoadImg:'',
+      baseUrl:'',
       imageUrl: '',
       value1:'',
       value2:''
     }
   },
   created(){
-    this.upLoadImg = resquest;
+    this.baseUrl = resquest;
   },
   methods:{
     handleChange(info){
@@ -85,6 +85,11 @@ export default {
       }
       return isJpgOrPng && isLt2M;
     },
+  },
+  computed:{
+    userName(){
+      return this.$store.state == "" ? this.$router.replace("/") : this.$store.getters.getUserName
+    }
   }
 
 };
