@@ -46,8 +46,24 @@ exports.deleteImg = (req, res) => {
 
 // 上传头像
 exports.upLoadAvatar = (req, res) => {
+        const user = req.query.user;
+        Index.findOne({ user })
+            .then(data => {
+                upLoadImg(req, res, 2, data._id)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        console.log(user)
+    }
+    // 上传简单介绍
+exports.upLoadInfo = (req, res) => {
     const user = req.query.user;
-    console.log(user)
+    const value1 = req.query.value1;
+    const value2 = req.query.value2
+    console.log(user, value1, value2)
+
+    res.json('ok')
 }
 
 // module.exports = router;

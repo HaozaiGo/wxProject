@@ -26,7 +26,8 @@
       <a-input v-model="value1" placeholder="Basic usage" size="large" class="mya-input"/>
       <p class="secondTitle">第二行介绍</p>
       <a-input v-model="value2" placeholder="请输入第二行介绍" size="large" class="mya-input"/>
-      <button class="saveAndUpload">保存并上传</button>
+      <!-- 这里有问题 -->
+      <button class="saveAndUpload" @click="saveInfo({value1:this.value1, value2:value2})">保存并上传</button>
     </div>
   </div>
 </template>
@@ -34,7 +35,7 @@
 <script>
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
-import { resquest } from '@/api/api';
+import { resquest,uploadInfo } from '@/api/api';
 function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
@@ -69,6 +70,8 @@ export default {
           this.imageUrl = imageUrl;
           this.loading = false;
         })
+        message.success('上传成功')
+
       }
        if (info.file.status === 'error') {
         this.loading = false;
@@ -85,6 +88,11 @@ export default {
       }
       return isJpgOrPng && isLt2M;
     },
+    // 提交上传
+    async saveInfo(data){
+      const uploadResult = await uploadInfo(data)
+      console.log(uploadResult)
+    }
   },
   computed:{
     userName(){

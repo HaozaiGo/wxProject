@@ -9,5 +9,6 @@ module.exports = app => {
     app.post('/registered', login.registered);
     app.post('/uploadImg', index.upLoadImg);
     app.delete('/deleteImg', index.deleteImg);
-    app.post('/upLoadAvatar', index.upLoadAvatar)
+    app.post('/upLoadAvatar', index.upLoadAvatar);
+    app.get('/uploadInfo', index.upLoadInfo)
 }

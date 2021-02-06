@@ -63,7 +63,7 @@ export default {
     };
   },
   mounted() {
-    this.getbannerData({ user: this.userName });
+    this.getbannerData({ user: this.userName }); //刷新banner页
     this.imgUrl = resquest;
     // console.log(this.$store.state.userName)
   },
@@ -82,6 +82,8 @@ export default {
       }
       if (info.file.status === "done") {
         message.success(`${info.file.name} file upload Success`);
+        this.getbannerData({ user: this.userName }); //刷新banner页
+
       }
       if (info.file.status === "error") {
         message.error(`${info.file.name} upload fail`);
