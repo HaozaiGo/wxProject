@@ -10,7 +10,11 @@ const indexSchema = new mongoose.Schema({
     //TITLE 
     imgTitle: { type: String },
     //introduction
-    introduction: { type: String }
+    introduction: { type: String },
+    // secondIntroduction
+    secondeIntroduction: { type: String },
+    // avatar
+    avatar: String
 })
 
 module.exports = mongoose.model('index', indexSchema)
