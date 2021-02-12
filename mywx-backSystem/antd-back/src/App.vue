@@ -1,19 +1,14 @@
 <template>
   <div>
-    
-    <Index />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld.vue";
-import Index from "./components/index/index2"
 
 export default {
   name: "App",
-  components: {
-    Index
-  },
+ 
 };
 </script>
 

@@ -1,0 +1,13 @@
+{
+    "RECORDS": [{
+        "user": "123",
+        "upLoadPic": ["comfident.jpg", "friend.png"],
+        "imgTitle": "自信",
+        "introduction": "这是第一幅上传图"
+    }, {
+        "user": "admin",
+        "upLoadPic": ["friend.png"],
+        "imgTitle": "朋友们",
+        "introduction": "图2"
+    }]
+}

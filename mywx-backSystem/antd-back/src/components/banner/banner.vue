@@ -1,59 +1,96 @@
 <template>
   <div>
     <a-carousel effect="fade">
-      <div><h3>1</h3></div>
-      <div><h3>2</h3></div>
-      <div><h3>3</h3></div>
-      <div><h3>4</h3></div>
+      <div v-for="(item, index) of bannerList" :key="index">
+        <img :src="imgUrl + `${item.bannerImg}`" alt="" class="bannerImg" />
+      </div>
     </a-carousel>
     <!-- 添加或者删除 -->
     <div class="operation">
-      <a-button type="primary">
-        <template #icon><CloudDownloadOutlined />上传图片</template>
-      </a-button>
+      <div style="display: inline-block">
+        <a-upload name="file" 
+        :action="imgUrl + '/uploadImg?user=' + userName"   
+        @change="handleChange">
+          <a-button type="primary">
+            <template #icon><CloudDownloadOutlined />上传图片</template>
+          </a-button>
+        </a-upload>
+      </div>
+
       <a-button type="danger" class="deleteBtn">删除图片 </a-button>
     </div>
 
     <!-- 图片列表 -->
-      <a-list item-layout="horizontal" :data-source="data" class="demo-loadmore-list">
-      <a-list-item v-for="(item,index) of bannerList" :key="index">
-        <a-list-item-meta
-          :description="item.describe"
-        >
+    <a-list
+      item-layout="horizontal"
+      :data-source="data"
+      class="demo-loadmore-list"
+    >
+      <a-list-item v-for="(item, index) of bannerList" :key="index">
+        <!-- 描述 -->
+        <a-list-item-meta :description="item.introduction">
           <template #title>
-            <a href="">{{ item.name }}</a>
+            <a href="">{{ item.imgTitle }}</a>
           </template>
           <template #avatar>
-            <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            <a-avatar
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            />
           </template>
         </a-list-item-meta>
       </a-list-item>
-  </a-list>
+    </a-list>
   </div>
 </template>
 
 <script>
 import { CloudDownloadOutlined } from "@ant-design/icons-vue";
+import { getIndex, resquest } from "@/api/api";
+import { message } from 'ant-design-vue';
 export default {
   components: {
     CloudDownloadOutlined,
   },
   data() {
     return {
-      bannerList: [
-        {
-          name: "图片1",
-          describe: "这是上传的第1副图片",
-          upTime: "2020,12.29",
-        },
-         {
-          name: "图片2",
-          describe: "这是上传的第2副图片",
-          upTime: "2020,12.29",
-        },
-      ],
+      bannerList: [],
+      imgUrl: "",
     };
   },
+  mounted() {
+    this.getbannerData();
+    this.imgUrl = resquest;
+    // console.log(this.$store.state.userName)
+
+  },
+  methods: {
+    // 请求banner数据
+    async getbannerData() {
+      const bannerData = await getIndex();
+
+      this.bannerList = bannerData.data;
+    },
+    handleChange(info){
+      // console.log(info)
+      if(info.file.status !=='uploading'){
+        // console.log(info.file, info.fileList)
+      }if(info.file.status === 'done'){
+        message.success(`${info.file.name} file upload Success`)
+      }if(info.file.status === 'error'){
+        message.error(`${info.file.name} upload fail`)
+      }
+    }
+  },
+  computed:{
+   userName(){
+     if(this.$store.getters.getUserName == ''){
+       return this.$router.replace('/')
+     }else{
+       return this.$store.getters.getUserName
+     }
+     
+   }
+  }
 };
 </script>
 
@@ -62,6 +99,10 @@ export default {
   padding: 30px;
   width: 100%;
   text-align: center;
+}
+.bannerImg {
+  display: block;
+  margin: 0 auto;
 }
 .ant-btn-icon-only {
   width: 10vw;
