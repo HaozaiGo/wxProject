@@ -23,11 +23,11 @@
     <div class="innerIntroduction">
       <p class="title">输入简单的介绍</p>
       <p>介绍</p>
-      <a-input v-model="value1" placeholder="Basic usage" size="large" class="mya-input"/>
+      <a-input v-model="value1" placeholder="Basic usage" size="large" class="mya-input" @change="inputChange"/>
       <p class="secondTitle">第二行介绍</p>
-      <a-input v-model="value2" placeholder="请输入第二行介绍" size="large" class="mya-input"/>
-      <!-- 这里有问题 -->
-      <button class="saveAndUpload" @click="saveInfo({value1:this.value1, value2:value2})">保存并上传</button>
+      <a-input v-model="value2" placeholder="请输入第二行介绍" size="large" class="mya-input" @change="input2Change"/>
+      
+      <button class="saveAndUpload" @click="saveInfo({value1:value1, value2:value2})">保存并上传</button>
     </div>
   </div>
 </template>
@@ -91,8 +91,18 @@ export default {
     // 提交上传
     async saveInfo(data){
       const uploadResult = await uploadInfo(data)
-      console.log(uploadResult)
-    }
+      uploadResult.status == 200?message.success('修改成功'):message.error('上传失败')
+      // console.log(uploadResult)
+    },
+    inputChange(e){
+      const { value } = e.target;
+      this.value1 = value;
+    },
+    input2Change(e){
+      const { value } = e.target;
+      this.value2 = value;
+    },
+
   },
   computed:{
     userName(){

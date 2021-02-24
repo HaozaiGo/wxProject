@@ -12,7 +12,7 @@ const indexSchema = new mongoose.Schema({
     //introduction
     introduction: { type: String },
     // secondIntroduction
-    secondeIntroduction: { type: String },
+    secondIntroduction: { type: String },
     // avatar
     avatar: String
 })
