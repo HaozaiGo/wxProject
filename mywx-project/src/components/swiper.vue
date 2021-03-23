@@ -10,7 +10,7 @@
     >
       <block v-for="(item, index) in banner" :index="index" :key="index">
         <swiper-item>
-          <image :src="item.url" class="slide-image" mode="aspectFill" />
+          <image :src="item" class="slide-image" mode="aspectFill" />
         </swiper-item>
       </block>
     </swiper>
@@ -18,15 +18,22 @@
 </template>
 
 <script>
+import {Banner} from '$api'
 export default {
   data(){
     return{
-        banner: [
-        {
-        url:'http://codeve.online/onlineImg/friend.png'
-      },{
-        url:'http://codeve.online/onlineImg/comfident.jpg'
-      }],
+        banner: [] //轮播
+    }
+  },
+  mounted(){
+    this.getBannerData()
+  },
+  methods:{
+    async getBannerData(){
+      // const bannerList = await Banner();
+      
+      // this.banner = bannerList
+      // console.log(this.banner)
     }
   }
   

@@ -1,19 +1,25 @@
 const mongoose = require('mongoose');
-
 const pick1Model = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required:true,
     },
-    Name: {
-        type: Array
+    pick1List: {
+        type: Array,
+        key:{
+            type:Number
+        },
+        Name: {
+            type: String
+        },
+        description: {
+            type: String
+        },
+        Tags: {
+            type: Array
+        }
     },
-    description: {
-        type: Array
-    },
-    Tags: {
-        type: Array
-    }
+
 })
 
 module.exports = mongoose.model('pick1', pick1Model)

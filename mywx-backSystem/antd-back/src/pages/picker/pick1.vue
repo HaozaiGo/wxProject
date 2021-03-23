@@ -28,7 +28,7 @@
         <span>
           <a>Invite 一 {{ record.name }}</a>
           <a-divider type="vertical" />
-          <a>Delete</a>
+          <a @click="deletePick1(record.key)">Delete</a>
           <a-divider type="vertical" />
           <a class="ant-dropdown-link"> More actions <down-outlined /> </a>
         </span>
@@ -40,19 +40,21 @@
       >
     </div>
 
-    <a-modal v-model:visible="visible" title="请输入" @ok="handleOk">
+    <a-modal :visible="visible" title="请输入" @ok="handleOk" @cancel="cancel">
       <a-form
         :model="formState"
         :label-col="labelCol"
         :wrapper-col="wrapperCol"
+        :rules="rules"
+        ref="formRef"
       >
-        <a-form-item label="Name">
+        <a-form-item label="Name" name="name">
           <a-input v-model:value="formState.name" />
         </a-form-item>
-        <a-form-item label="描述">
+        <a-form-item label="描述" name="description">
           <a-input v-model:value="formState.description" />
         </a-form-item>
-        <a-form-item label="Tags">
+        <a-form-item label="Tags" name="tags">
           <a-input v-model:value="formState.tags" />
         </a-form-item>
       </a-form>
@@ -61,10 +63,10 @@
 </template>
 
 <script>
-import { ref, reactive, toRaw, onMounted, toRefs} from "vue";
+import { ref, reactive, toRaw, onMounted, toRefs } from "vue";
 import { message } from "ant-design-vue";
 import { SmileOutlined, DownOutlined } from "@ant-design/icons-vue";
-import { pick1Upload, getPick1Data } from "@/api/api";
+import { pick1Upload, getPick1Data, deletePick1List } from "@/api/api";
 
 const columns = [
   {
@@ -72,7 +74,6 @@ const columns = [
     key: "Name",
     slots: { title: "customTitle", customRender: "name" },
   },
-
   {
     title: "描述",
     dataIndex: "description",
@@ -81,7 +82,7 @@ const columns = [
   {
     title: "tags",
     key: "tags",
-    dataIndex: "tags",
+    dataIndex: "Tags",
     slots: { customRender: "tags" },
   },
   {
@@ -93,56 +94,82 @@ const columns = [
 
 export default {
   setup() {
+    const formRef = ref();
     const visible = ref(false);
     let state = reactive({
-       pick1List : [
-        {
-          // key: "1",
-          Name: "成都",
-          description: "第一首吉他曲",
-          tags: ["nice", "developer"],
-        },
-        {
-          // key: "2",
-          Name: "青花瓷",
-          description: "听不懂但又好听",
-          tags: ["loser"],
-        },
-      ]
-    })
+      pick1List: [],
+    });
+    //规则限制
+    const rules = {
+      name: [{ required: true, message: "请输入名称", trigger: "blur" }],
+      description: [{ required: true, message: "请输入描述", trigger: "blur" }],
+      tags: [{ required: true, message: "请输入tags", trigger: "blur" }],
+    };
+
+    //打开弹窗
     const showModel = () => {
       visible.value = true;
     };
+    //获取列表信息
     const Pick1Data = async () => {
       const result = await getPick1Data();
-      console.log(result.data)
-      // state.pick1List = result.data;
+      state.pick1List = result.data.pick1List;
+      // result.data
+      console.log(state.pick1List);
     };
+    // 确认提交pick1
     const handleOk = () => {
-      // 提交pick1
-      pick1Upload(toRaw(formState)).then((res) => {
-        res.status == 200
-          ? message.success("提交成功")
-          : message.error("提交失败");
-        console.log(res);
-      });
+      formRef.value
+        .validate()
+        .then(() => {
+          // 提交pick1
+          pick1Upload(toRaw(formState)).then((res) => {
+            res.status == 200
+              ? message.success("提交成功")
+              : message.error("提交失败");
+          });
+          visible.value = false;
+          Pick1Data();
+        })
+        .catch(() => {
+          message.error("请认真填写信息");
+          formRef.value.resetFields();
+        });
+
       // console.log(toRaw(formState));
+    };
+    //删除列
+    const deletePick1 = async (key) => {
+      console.log(key);
+      const result = await deletePick1List({ key: key });
+      state.pick1List = result.data.pick1List;
+      Pick1Data();
+    };
+    // 点击弹窗的关闭
+    const cancel = () => {
       visible.value = false;
     };
+    // 表单信息
     const formState = reactive({
       name: "",
       description: "",
       tags: "",
     });
 
-    onMounted(Pick1Data);
+    onMounted(() => {
+      Pick1Data();
+    });
 
     return {
-      // ...toRefs(state),
-      ...state,
+      ...toRefs(state),
       visible,
       showModel,
+      formRef,
+      columns,
       handleOk,
+      deletePick1,
+      cancel,
+      rules,
       formState,
       labelCol: {
         span: 4,
@@ -157,29 +184,7 @@ export default {
     DownOutlined,
   },
   data() {
-    return {
-      // data: [
-      //   {
-      //     // key: "1",
-      //     name: "成都",
-      //     describe: "第一首吉他曲",
-      //     tags: ["nice", "developer"],
-      //   },
-      //   {
-      //     // key: "2",
-      //     name: "青花瓷",
-      //     describe: "听不懂但又好听",
-      //     tags: ["loser"],
-      //   },
-      //   {
-      //     // key: "3",
-      //     name: "Joe Black",
-      //     describe: "Sidney No. 1 Lake Park",
-      //     tags: ["cool", "teacher"],
-      //   },
-      // ],
-      columns,
-    };
+    return {};
   },
 };
 </script>

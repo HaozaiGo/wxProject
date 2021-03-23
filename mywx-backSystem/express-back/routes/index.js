@@ -3,6 +3,14 @@ var router = express.Router();
 const Index = require('../models/index');
 const upLoadImg = require('../util/upLoadImg');
 
+//test
+exports.test = (req,res) =>{
+    Index.find()
+            .then(data =>{
+                res.send(data)
+            })
+}
+
 /* GET banner page. */
 
 exports.banner = (req, res) => {

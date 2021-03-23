@@ -6,5 +6,6 @@
         "van-cell": "/static/vant/cell/index",
         "van-cell-group": "/static/vant/cell-group/index",
         "van-card": "/static/vant/card/index"
+        
     }
 }

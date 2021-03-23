@@ -24,6 +24,10 @@ export default {
       mpvue.setStorageSync('logs', logs)
     }
   },
+  mounted(){
+    const accountInfo = wx.getAccountInfoSync();
+    console.log(accountInfo.miniProgram.appId)
+  },
   log () {
     console.log(`log at:${Date.now()}`)
   }
