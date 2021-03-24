@@ -19,6 +19,10 @@ const userLogin = new mongoose.Schema({
     phone: {
         type: String,
         default: ''
+    },
+    appId:{
+        type:String,
+        default:''
     }
 })
 

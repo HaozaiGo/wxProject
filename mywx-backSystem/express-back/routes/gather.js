@@ -19,4 +19,6 @@ module.exports = app => {
     app.get('/pick1Upload', pick.pick1Upload);
     app.get('/getPick1Data', pick.getPick1Data);
     app.delete('/deletePick1',pick.deletePick1);
+    app.post('/uploadAppId',index.upLoadAppId); //上传appid
+    app.post('/compireAppId',index.compireAppId); //对比appid
 }

@@ -3,8 +3,8 @@ import store from '../store/index'
 // resquest 请求地址
 // '/testIp'代表vue-cli中config, index.js中配置的代理
 
-let resquest = 'http://localhost:3000' //本地
-//let resquest = 'http://203.195.129.113:3000'; //生产
+// let resquest = 'http://localhost:3000' //本地
+let resquest = 'http://203.195.129.113:3000'; //生产
 //let resquest = 'https://codeve.online'; //https
 var userName = store.getters.getUserName;
 
@@ -41,5 +41,9 @@ export function pick1Upload(params) {
 }
 export function deletePick1List(query){
     return http.delete(`${resquest}/deletePick1`,query)
+}
+//上传appid
+export function uploadAppID(params){
+    return http.post(`${resquest}/uploadAppId`, params)
 }
 export { resquest }
