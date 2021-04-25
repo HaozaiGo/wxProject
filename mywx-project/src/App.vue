@@ -1,4 +1,6 @@
+
 <script>
+import {CompireAppId} from '$api'
 export default {
   created () {
     // 调用API从本地缓存中获取数据
@@ -23,6 +25,20 @@ export default {
       logs.unshift(Date.now())
       mpvue.setStorageSync('logs', logs)
     }
+  },
+  mounted(){
+    //进行对比appid
+    const accountInfo = wx.getAccountInfoSync();
+    const appId = accountInfo.miniProgram.appId; //获取appid
+    CompireAppId({appId:appId}).then(res=>{
+      this.$store.commit('setUserName',res.username); //vuex
+      wx.setStorageSync('setUserName',res.username); //本地存储
+      console.log(this.$store)
+    }).catch(err=>{
+      console.log(err)
+    })
+
+    
   },
   log () {
     console.log(`log at:${Date.now()}`)

@@ -1,4 +1,5 @@
 <template>
+<div>
   <a-layout id="components-layout-demo-custom-trigger">
     <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
       <div class="logo" />
@@ -33,6 +34,9 @@
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0">
           <BarsOutlined class="trigger" @click="()=>(collapsed = !collapsed)"/>
+            <a class="compaireId" @click="loginOut">退出</a>
+            <a class="compaireId" @click="showModal">认证AppId</a>
+         
       </a-layout-header>
       <a-layout-content
         :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '90vh' }"
@@ -42,11 +46,48 @@
       </a-layout-content>
     </a-layout>
   </a-layout>
+      <a-modal v-model:visible="visible" title="绑定AppId" @ok="handleOk">
+      <template #footer>
+        <a-button key="back" @click="handleCancel">返回</a-button>
+        <a-button key="submit" type="primary" @click="handleOk">确认</a-button>
+      </template>
+  
+       <a-input v-model:value="value" placeholder="appid" />
+    </a-modal>
+  </div>
 </template>
 <script>
 import {UserOutlined,AuditOutlined,AppstoreOutlined,BarsOutlined,AreaChartOutlined } from '@ant-design/icons-vue';
-
+import { ref } from 'vue'
+import {uploadAppID} from '@/api/api'
+import { message } from 'ant-design-vue';
 export default {
+  setup(){
+    const value = ref('')
+    const visible = ref(false);
+    //打开modal
+    const showModal = () =>{
+      visible.value = true
+    }
+    //取消modal
+    const handleCancel = () =>{
+      visible.value = false
+    }
+    //提交appid
+    const handleOk = () => {
+      uploadAppID({appId:value.value}).then(res=>{
+        message.success('认证成功');
+        visible.value = false
+      })
+    }
+    return {
+      visible,
+      value,
+      showModal,
+      handleCancel,
+      handleOk
+    }
+  },
   components:{
       UserOutlined,AuditOutlined,AppstoreOutlined,BarsOutlined,AreaChartOutlined
   },
@@ -63,7 +104,10 @@ export default {
     routerLink(item){
       this.$router.push(item)
       console.log(item)
-      }
+      },
+    loginOut(){
+      this.$router.replace('/');
+    }
   }
 };
 </script>
@@ -84,6 +128,10 @@ export default {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
+}
+.compaireId{
+  float: right;
+  margin-right: 30px;
 }
 </style>
 

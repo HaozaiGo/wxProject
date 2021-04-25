@@ -3,7 +3,8 @@ const path = require('path');
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 const resolve = (dir) => path.join(__dirname, dir);
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/site/vue-demo/' : '/', //公共路径
+    // entry: ["babel-polyfill", "./main/js"]
+    publicPath: process.env.NODE_ENV === 'production' ? '/dist' : '/', //公共路径
     indexPath: 'index.html', //相对于打包路径index.html路径
     outputDir: process.env.outputDir || 'dist', //'dist'生产环境构建文件的目录
     assetsDir: 'static', //相对于outputDir静态资源（js,css,fonts）目录 静态资源
@@ -45,20 +46,21 @@ module.exports = {
             errors: true
         },
         host: "localhost",
-        port: 8080, //端口号
+        port: 8083, //端口号
         https: false, //https:{type:Boolean}
         open: true, //配置后自动启动浏览器
         hotOnly: true, //热更新
         proxy: {
             //配置多个代理
-            "/images": {
-                target: "http://localhost:3000",
+            "/proxy": {
+                target: "http://203.195.129.113",
+                // target: "http://localhost:3000",
                 changeOrigin: true,
                 ws: true,
                 //websocket支持
                 secure: false,
                 pathRewrite: {
-                    "^/images": ''
+                    "^/proxy": '/'
                 }
             },
             // "/elseIp": {

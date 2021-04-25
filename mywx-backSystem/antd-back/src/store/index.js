@@ -4,7 +4,8 @@ import { createStore } from 'vuex'
 const store = createStore({
     state() {
         return {
-            userName: ''
+            userName: '',
+            token:''
         }
     },
     mutations: {

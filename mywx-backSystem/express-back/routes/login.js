@@ -1,6 +1,7 @@
 var express = require('express')
 const User = require('../models/login')
 const Index = require('../models/index')
+const Pick1 = require('../models/pick1')
 const crypto = require('crypto')
 const { userInfo } = require('os')
 const secret = 'abcde'
@@ -18,11 +19,18 @@ exports.registered = (req, res) => {
             const newIndex = new Index({
                 user: username
             })
-            newIndex.save()
+
             const newUser = new User({
                 username,
                 password
             })
+
+            const newPick1 = new Pick1({
+                username
+            })
+
+            newPick1.save();
+            newIndex.save();
             newUser.save()
                 .then(data => {
                     res.send('success')

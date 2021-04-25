@@ -2,7 +2,7 @@
   <div>
     <a-carousel effect="fade" :after-change="bannerChange">
       <div v-for="(item, index) of bannerList.upLoadPic" :key="index">
-        <img :src="imgUrl + `/images/${item}`" alt="" class="bannerImg" />
+        <img :src="imgUrl + `/${item}`" alt="" class="bannerImg" />
       </div>
     </a-carousel>
     <!-- 添加或者删除 -->

@@ -86,8 +86,11 @@ export default {
       var that = this 
       const logining = await login(formData);
       console.log(logining.data)
+      //存入sessionStorage
+      sessionStorage.setItem('token',logining.data.username);
       // 将用户名存入vuex
       this.$store.commit('M_userName',logining.data.username);
+      // that.$router.push('/index')
       if(logining && logining.status != 400){
         Modal.success({
           title:'登录成功,请稍候'

@@ -5,6 +5,8 @@
         "van-tabs": "/static/vant/tabs/index",
         "van-cell": "/static/vant/cell/index",
         "van-cell-group": "/static/vant/cell-group/index",
-        "van-card": "/static/vant/card/index"
+        "van-card": "/static/vant/card/index",
+        "van-popup": "/static/vant/popup/index",
+        "van-loading": "/static/vant/loading/index"
     }
 }
