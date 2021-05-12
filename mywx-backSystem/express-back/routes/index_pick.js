@@ -1,4 +1,13 @@
+/*
+ * @Author: your name
+ * @Date: 2021-04-27 09:49:15
+ * @LastEditTime: 2021-05-12 14:23:34
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \express-back\routes\index_pick.js
+ */
 const Pick1 = require('../models/pick1');
+const upLoadImg = require('../util/upLoadImg');
 let firstTime = true;
 let count = 0;
 // pick1Data
@@ -47,3 +56,19 @@ exports.deletePick1 = (req, res) => {
     }
     )
 }
+exports.pick2UpLoad = (req,res) =>{
+  const username = req.headers.authorization;
+  const body = req.body;
+  console.log(username);
+  // console.log(req)
+  Pick1.findOne({username})
+        .then(data=>{
+          console.log(data)
+          upLoadImg(req,res,3,data._id,'public')
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+        
+
+} 

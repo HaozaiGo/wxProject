@@ -34,6 +34,9 @@
         </a-form-item>
       </a-form>
     </div>
+    <div class="footer">
+      <p> <a href="http://beian.miit.gov.cn">粤ICP备2020128838号</a> </p>
+    </div>
   </div>
 </template>
 
@@ -44,6 +47,7 @@ import { UserOutlined, UnlockOutlined } from "@ant-design/icons-vue";
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import { createVNode } from 'vue';
 import { login } from "@/api/api";
+
 export default {
   components: {
     UserOutlined,
@@ -90,6 +94,7 @@ export default {
       sessionStorage.setItem('token',logining.data.username);
       // 将用户名存入vuex
       this.$store.commit('M_userName',logining.data.username);
+      this.$store.dispatch('setToken',logining.data.username);
       // that.$router.push('/index')
       if(logining && logining.status != 400){
         Modal.success({
@@ -148,5 +153,14 @@ export default {
   padding-bottom: 20px;
   border-bottom: 2px solid #8ebfd0;
   margin-bottom: 80px;
+}
+.footer{
+  background-color: #333;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  color: #666;
 }
 </style>

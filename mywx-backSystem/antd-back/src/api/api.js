@@ -1,10 +1,18 @@
+/*
+ * @Author: your name
+ * @Date: 2021-04-27 09:49:15
+ * @LastEditTime: 2021-05-12 09:05:34
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \mywx-backSystem\antd-back\src\api\api.js
+ */
 import http from '../utils/http'
 import store from '../store/index'
 // resquest 请求地址
 // '/testIp'代表vue-cli中config, index.js中配置的代理
 
-// let resquest = 'http://localhost:3000' //本地
-let resquest = 'http://203.195.129.113:3000'; //生产
+ let resquest = 'http://localhost:3000' //本地
+//let resquest = 'http://146.56.208.175:3000'; //生产
 //let resquest = 'https://codeve.online'; //https
 var userName = store.getters.getUserName;
 

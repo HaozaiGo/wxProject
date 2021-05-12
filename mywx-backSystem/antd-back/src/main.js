@@ -1,18 +1,27 @@
+/*
+ * @Author: xiaohao
+ * @Date: 2021-04-27 09:49:15
+ * @LastEditTime: 2021-05-12 10:00:58
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \mywx-backSystem\antd-back\src\main.js
+ */
 import { createApp } from 'vue';
 import Antd from 'ant-design-vue';
 import App from './App.vue';
 import 'ant-design-vue/dist/antd.css';
 // import 'ant-design-vue/dist/antd.less';
 import router from './router/router.js'
-
+require('@/assets/style/public.css')
 // Vuex
 import store from './store/index'
+import {resquest} from '@/api/api.js'
 
 const app = createApp(App);
 
 
 
-
+app.provide('$resquest',resquest); //全局注入resquest
 app.config.productionTip = false;
 app.use(Antd);
 app.use(router);

@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-04-27 09:49:15
+ * @LastEditTime: 2021-05-12 09:23:04
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \express-back\routes\gather.js
+ */
 const index = require('./index');
 const profile = require('./profile');
 const login = require('./login');
@@ -21,4 +29,5 @@ module.exports = app => {
     app.delete('/deletePick1',pick.deletePick1);
     app.post('/uploadAppId',index.upLoadAppId); //上传appid
     app.post('/compireAppId',index.compireAppId); //对比appid
+    app.post('/pick2UpLoad',pick.pick2UpLoad); //pick2上传
 }

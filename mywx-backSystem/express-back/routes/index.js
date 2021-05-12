@@ -30,7 +30,7 @@ exports.upLoadImg = (req, res) => {
   Index.findOne({ user })
     .then(data => {
       // console.log(data)
-      upLoadImg(req, res, 1, data._id)
+      upLoadImg(req, res, 1, data._id,'public')
     })
     .catch(err => {
       console.log(err)
@@ -58,7 +58,7 @@ exports.upLoadAvatar = (req, res) => {
   const user = req.query.user;
   Index.findOne({ user })
     .then(data => {
-      upLoadImg(req, res, 2, data._id)
+      upLoadImg(req, res, 2, data._id,'avatar')
     })
     .catch(err => {
       console.log(err)
