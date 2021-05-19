@@ -23,7 +23,6 @@ export function getIndex(params) {
 // 登录
 export function login(params) {
     return http.post(`${resquest}/login`, params)
-
 }
 // 注册
 export function Registered(params) {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-12 14:23:34
+ * @LastEditTime: 2021-05-19 11:26:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \express-back\routes\index_pick.js
@@ -50,25 +50,35 @@ exports.deletePick1 = (req, res) => {
         .then(datas => {
           res.json(datas)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     }
     )
 }
-exports.pick2UpLoad = (req,res) =>{
+//pick2列表
+exports.getPick2List = (req,res) =>{
   const username = req.headers.authorization;
-  const body = req.body;
-  console.log(username);
-  // console.log(req)
   Pick1.findOne({username})
         .then(data=>{
-          console.log(data)
-          upLoadImg(req,res,3,data._id,'public')
+          res.json(data)
         })
-        .catch(err=>{
-          console.log(err)
-        })
-        
+}
 
-} 
+//pick2上传
+exports.pick2UpLoad = (req, res) => {
+  const username = req.headers.authorization;
+  const body = req.body;
+  // console.log(body)
+  // console.log(req)
+  Pick1.findOne({ username })
+    .then(data => {
+      // console.log(data)
+        upLoadImg(req, res, 3, data._id, 'public');
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+
+}

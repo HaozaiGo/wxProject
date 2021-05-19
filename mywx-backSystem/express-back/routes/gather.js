@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-12 09:23:04
- * @LastEditors: your name
+ * @LastEditTime: 2021-05-18 11:31:09
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \express-back\routes\gather.js
  */
@@ -29,5 +29,6 @@ module.exports = app => {
     app.delete('/deletePick1',pick.deletePick1);
     app.post('/uploadAppId',index.upLoadAppId); //上传appid
     app.post('/compireAppId',index.compireAppId); //对比appid
+    app.get('/getPick2List',pick.getPick2List); //获取pick2列表
     app.post('/pick2UpLoad',pick.pick2UpLoad); //pick2上传
 }
