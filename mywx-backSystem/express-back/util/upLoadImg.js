@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-19 17:18:44
+ * @LastEditTime: 2021-05-21 11:15:09
  * @LastEditors: Please set LastEditors
  * @params: req res id默认必传 flag处理暗号 position图片存放位置'public'/'avatar'
  * @Description: uploadIMg
@@ -40,8 +40,10 @@ module.exports = (req, res, flag, id, position) => {
             avatarPath = files.avatar;
        
         
-        console.log(files)
-        console.log(req)
+        // console.log(files)
+        console.log(fields)
+
+        // console.log(req)
        
         let time = formatTime.format(new Date(), 'YYYYMMDDHHmmss');
         let num = Math.floor(Math.random() * 1000 + 1000);
@@ -84,7 +86,8 @@ module.exports = (req, res, flag, id, position) => {
                 }
                 if (flag === 3) {
                     // console.log(req)
-                    pick.findOneAndUpdate({ _id: id }, { $push: { pick2List: { img: imageFinalName} } })
+                    
+                    pick.findOneAndUpdate({ _id: id },{ $push: { pick2List: {img:imageFinalName, description:fields.disValue}}})
                         .then(data => {
                             // console.log(data)
                             res.json(data)

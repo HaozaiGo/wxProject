@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-12 11:58:21
+ * @LastEditTime: 2021-05-20 10:48:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \express-back\models\pick1.js
@@ -29,6 +29,9 @@ const pick1Model = new mongoose.Schema({
     },
     pick2List:{
         type:Array,
+        key:{
+            type:Number,
+        },
         img:{
             type:String
         },

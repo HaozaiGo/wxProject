@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-17 10:38:55
- * @LastEditTime: 2021-05-18 11:32:49
+ * @LastEditTime: 2021-05-21 13:40:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \antd-back\src\api\pick2.js
@@ -16,3 +16,7 @@ export function uploadPick2Drs(params){
 export function getPick2Data(){
     return http.get(`${resquest}/getPick2List`)
 } 
+//删除pick2其中一条数据
+export function deletePick2One(params){
+    return http.delete(`${resquest}/pick2DeleteOne`,params)
+}

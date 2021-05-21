@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-19 11:26:43
+ * @LastEditTime: 2021-05-21 13:38:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \express-back\routes\index_pick.js
@@ -79,6 +79,12 @@ exports.pick2UpLoad = (req, res) => {
     .catch(err => {
       console.log(err)
     })
-
-
+}
+//pick2删除单个
+exports.pick2DeleteOne = (req,res) =>{
+  const username = req.headers.authorization;
+  // const delKey = 
+  Pick1.findOneAndUpdate({username}).then((data)=>{
+    console.log(data)
+  })
 }

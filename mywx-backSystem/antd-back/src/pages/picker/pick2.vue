@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-19 17:30:34
+ * @LastEditTime: 2021-05-21 13:48:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mywx-backSystem\antd-back\src\pages\picker\pick2.vue
@@ -17,25 +17,28 @@
         </template>
       </a-button>
     </div>
-    <a-card
-      hoverable
-      style="width: 300px"
-      v-for="(item, index) in state.pick2Cards"
-      :key="index"
-    >
-      <!-- 封面 -->
-      <template #cover>
-        <img alt="example" :src="request + '/' + item.img" />
-        <!-- :src="request + `/20210518093836_1565.png`" -->
-      </template>
-      <template class="ant-card-actions" #actions>
-        <setting-outlined key="setting" />
-        <edit-outlined key="edit" @click="showModal" />
-        <ellipsis-outlined key="ellipsis" />
-      </template>
-      <a-card-meta title="Card title" description="This is the description">
-      </a-card-meta>
-    </a-card>
+    <a-row :gutter="16">
+      <a-col :span="4" v-for="(item, index) in state.pick2Cards"  :key="index">
+        <!-- 卡片 -->
+        <a-card
+          hoverable
+        >
+          <!-- 封面 -->
+          <template #cover>
+            <img alt="example" :src="request + '/' + item.img" style="height:25vh" />
+            <!-- :src="request + `/20210518093836_1565.png`" -->
+          </template>
+          <template class="ant-card-actions" #actions>
+            <setting-outlined key="setting" @click="showDelete(index)"/>
+            <edit-outlined key="edit" @click="showModal(index)" />
+            <ellipsis-outlined key="ellipsis" />
+          </template>
+          <a-card-meta title="描述" :description="item.description">
+          </a-card-meta>
+        </a-card>
+      </a-col>
+    </a-row>
+
     <!-- 编辑添加 -->
     <div>
       <a-modal
@@ -54,7 +57,6 @@
             :action="request + `/pick2UpLoad`"
             :headers="{ authorization: getToken }"
             :before-upload="beforeUpload"
-            @change="handleChange"
           >
             <img v-if="state.imageUrl" :src="state.imageUrl" alt="avatar" />
             <div v-else>
@@ -69,6 +71,12 @@
         <p><a-input v-model:value="state.disValue" placeholder="输入描述" /></p>
       </a-modal>
     </div>
+    <!-- 删除提示 -->
+
+    <a-modal v-model:visible="delVisible" title="提示" @ok="handleComfirmDelete">
+      <p><ExclamationCircleOutlined style="fontSize:26px;color:rgb(255,165,0);margin-right:20px" />确认要删除此项吗？</p>
+    
+    </a-modal>
   </div>
 </template>
 
@@ -79,6 +87,7 @@ import {
   EllipsisOutlined,
   LoadingOutlined,
   PlusOutlined,
+  ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
 import { ref, inject, reactive, onMounted } from "vue";
 import { mapGetters } from "vuex";
@@ -96,11 +105,13 @@ export default {
     EllipsisOutlined,
     LoadingOutlined,
     PlusOutlined,
+    ExclamationCircleOutlined
   },
 
   setup() {
     const request = inject("$resquest");
     const visible = ref(false);
+    const delVisible = ref(false);
     const loading = ref(false);
     const state = reactive({
       disValue: "", //描述
@@ -108,23 +119,30 @@ export default {
       imageUrl: "", //显示base64图片
       uploadImg: [],
       imgfile: "",
+      cardIndex:0, //card的编号
     });
     //获取列表数据
     const getPick2List = () => {
       getPick2Data().then((res) => {
-        // console.log(res);
+        console.log(res);
         state.pick2Cards = res.data.pick2List;
       });
     };
 
     // 打开编辑
-    const showModal = () => {
+    const showModal = (index) => {
+      state.cardIndex = index;
+      console.log(state.cardIndex)
       visible.value = true;
     };
     // 图片提交前勾子
     const beforeUpload = (file) => {
       console.log(file);
       state.uploadImg = [...state.uploadImg, file]; //将file赋值到uploadImg
+      message.success('图片添加完成')
+      // getBase64(file.originFileObj, (base64Url) => {
+      //     state.imageUrl = base64Url;
+      //   });
       return false;
     };
     //确认
@@ -139,10 +157,18 @@ export default {
           formData.append("file", file);
         });
         formData.append("disValue", state.disValue);
-        console.log(formData)
-        // uploadPick2Drs(formData).then((res) => {
-        //   console.log(res);
-        // });
+        formData.append('key',state.cardIndex);
+        // console.log(formData)
+
+        uploadPick2Drs(formData).then((res) => {
+          // console.log(res);
+          if (res.status === 200) {
+            message.success("上传成功");
+            getPick2List();
+          } else {
+            message.error("上传失败");
+          }
+        });
         visible.value = false;
       }
     };
@@ -154,25 +180,34 @@ export default {
     const addCard = () => {
       visible.value = true;
     };
+    //showDelete
+    const showDelete = (index) =>{
+      state.cardIndex = index;
+      console.log(state.cardIndex);
+      delVisible.value = true
+    }
+    // 确认删除按钮
+    const handleComfirmDelete = () =>{
+      
+    }
+    // const handleChange = (info) => {
+    //   console.log(info);
+    //   if (info.file.status === "uploading") {
+    //     loading.value = true;
+    //     getBase64(info.file.originFileObj, (base64Url) => {
+    //       state.imageUrl = base64Url;
+    //       loading.value = false;
+    //     });
+    //     return;
+    //   }
+    //   if (info.file.status === "done") {
 
-    const handleChange = (info) => {
-      console.log(info);
-      if (info.file.status === "uploading") {
-        loading.value = true;
-
-        return;
-      }
-      if (info.file.status === "done") {
-        getBase64(info.file.originFileObj, (base64Url) => {
-          state.imageUrl = base64Url;
-          loading.value = false;
-        });
-        message.success("上传成功");
-      }
-      if (info.file.status === "error") {
-        loading.value = false;
-      }
-    };
+    //     message.success("上传成功");
+    //   }
+    //   if (info.file.status === "error") {
+    //     loading.value = false;
+    //   }
+    // };
 
     onMounted(() => {
       getPick2List();
@@ -182,13 +217,14 @@ export default {
       showModal,
       handleOk,
       request,
-      handleChange,
       loading,
       state,
       handleCanel,
       addCard,
       beforeUpload,
       getPick2List,
+      showDelete,
+      delVisible
     };
   },
   data() {
