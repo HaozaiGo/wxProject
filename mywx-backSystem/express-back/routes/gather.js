@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-21 13:39:08
+ * @LastEditTime: 2021-06-11 17:39:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \express-back\routes\gather.js
@@ -31,5 +31,7 @@ module.exports = app => {
     app.post('/compireAppId',index.compireAppId); //对比appid
     app.get('/getPick2List',pick.getPick2List); //获取pick2列表
     app.post('/pick2UpLoad',pick.pick2UpLoad); //pick2上传
-    app.delete('/pick2DeleteOne',pick.pick2DeleteOne)
+    app.delete('/pick2DeleteOne',pick.pick2DeleteOne) //pick2删除一个
+    app.post('/editPick2', pick.pick2Update) //pick2编辑
+    app.post('/pick3UpLoad',pick.pick3Upload) //pick3新增
 }

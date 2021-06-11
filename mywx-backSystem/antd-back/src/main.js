@@ -1,7 +1,7 @@
 /*
  * @Author: xiaohao
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-05-12 10:00:58
+ * @LastEditTime: 2021-06-11 16:59:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mywx-backSystem\antd-back\src\main.js
@@ -16,6 +16,7 @@ require('@/assets/style/public.css')
 // Vuex
 import store from './store/index'
 import {resquest} from '@/api/api.js'
+
 
 const app = createApp(App);
 
