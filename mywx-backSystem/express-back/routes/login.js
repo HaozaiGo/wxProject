@@ -18,6 +18,7 @@ exports.registered = (req, res) => {
             console.log(username, password)
             const newIndex = new Index({
                 user: username
+                
             })
 
             const newUser = new User({

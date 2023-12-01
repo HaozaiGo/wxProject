@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-27 09:49:15
- * @LastEditTime: 2021-06-11 17:39:59
+ * @LastEditTime: 2023-12-01 14:25:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \express-back\routes\gather.js
@@ -16,6 +16,10 @@ const pick1 = require('../models/pick1');
 module.exports = app => {
     //测试端口
     app.get('/test',index.test)
+    app.post('/addTest',index.add_Test)
+    app.delete('/deleteTest', index.deleteTest);
+    app.post('/updateTest', index.updateTest);
+
     
     app.get('/banner', index.banner);
     app.post('/login', login.logining);
